@@ -7,18 +7,20 @@ valuta = requests.get(URL)
 valuta_json = valuta.json()
 
 print("--- Bankimizga xush kelibsiz! --- ")
-print(f"Mavjud valutalar: USD, EUR, RUB, UZS va boshqalar.")
+print(f"Mavjud valutalar: ", end="")
+for a in valuta_json:
+    print(a['code'], end=" ")
 
 
-sum_1 = float(input("Summani kiriting: "))
-v_to = str.upper(input("Qaysi valutadan konver qilmoqchisiz: "))
-v_from = str.upper(input("Qaysi valutaga konver qilmoqchisiz: "))
+summa = float(input("\nSummani kiriting: "))
+v_from = str.upper(input("Qaysi valutadan konver qilmoqchisiz: "))
+v_to = str.upper(input("Qaysi valutaga konver qilmoqchisiz: "))
 
 for i in valuta_json:
-    if i['code'] == v_to:
+    if i['code'] == v_from:
         for j in valuta_json:
-            if v_from == j['code']:
-                print(f"Natija: {sum_1} {v_to} = {float(i['cb_price'])/float(j['cb_price']) * sum_1} {v_from}")
+            if v_to == j['code']:
+                print(f"Natija: {summa} {v_from} = {float(i['cb_price'])/float(j['cb_price']) * summa} {v_to}")
         break
                 
 
